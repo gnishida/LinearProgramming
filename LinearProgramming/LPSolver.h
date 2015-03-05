@@ -8,6 +8,7 @@ private:
 	lprec *lp;
 	int num_variables;
 	bool adding_constraints;
+	std::vector<double> objective_row;
 
 public:
 	LPSolver(int num_variables);

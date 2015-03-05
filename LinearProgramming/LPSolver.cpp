@@ -53,6 +53,9 @@ void LPSolver::addConstraint(int constr_type, std::vector<double>& row, std::vec
 void LPSolver::setObjective(std::vector<double>& row) {
 	assert(row.size() == num_variables);
 
+	objective_row.resize(row.size());
+	std::copy(row.begin(), row.end(), objective_row.begin());
+
 	if (adding_constraints) {
 		set_add_rowmode(lp, FALSE);
 	}
@@ -121,7 +124,9 @@ void LPSolver::displaySolution() {
 	double* var;
 	get_ptr_variables(lp, &var);
 	for (int i = 0; i < num_variables; ++i) {
-		// インデックスは１からスタートする！
-		printf("%s: %lf\n", get_col_name(lp, i + 1), var[i + 1]);
+		if (var[i] == 0.0) continue;
+
+		// column名は、インデックスが１からスタートする！
+		printf("%s: %lf (%lf)\n", get_col_name(lp, i + 1), var[i], objective_row[i]);
 	}
 }
