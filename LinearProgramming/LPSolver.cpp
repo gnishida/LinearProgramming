@@ -82,11 +82,13 @@ void LPSolver::setUpperBound(std::vector<double>& values) {
 
 int LPSolver::maximize() {
 	set_maxim(lp);
+	set_verbose(lp, IMPORTANT);
 	return solve(lp);
 }
 
 int LPSolver::minimize() {
 	set_minim(lp);
+	set_verbose(lp, IMPORTANT);
 	return solve(lp);
 }
 
